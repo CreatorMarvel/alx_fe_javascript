@@ -56,4 +56,25 @@ function importFromJsonFile(event) {
 	console.log(quotes);
 }
 
+function exportQuoteFun() {
+	const obj = {
+		quote: newQuoteTextEl.value,
+		category: newQuoteCategoryEl.value,
+	};
+
+	const file = new File([JSON.stringify(obj)], "quotes.json", {
+		type: "application/json",
+	});
+
+	const link = URL.createObjectURL(file);
+	const btn = document.createElement("a");
+	btn.textContent = "Export Quotes";
+	btn.href = link;
+	btn.download = file.name;
+
+	document.body.appendChild(btn);
+}
+
+exportQuoteFun();
+
 showQuote.addEventListener("click", showRandomQuote);
