@@ -38,10 +38,10 @@ const createQuoteElement = (quote, category) => {
 	quoteDisplay.appendChild(divEl);
 };
 
-const handleShowQuote = () => {
+const showRandomQuote = () => {
 	const randomQuote = quotes[Math.floor(Math.random() * quotes.length - 1)];
 
 	createQuoteElement(randomQuote.quote, randomQuote.category);
 };
 
-showQuote.addEventListener("click", handleShowQuote);
+showQuote.addEventListener("click", showRandomQuote);
