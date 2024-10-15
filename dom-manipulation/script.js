@@ -40,8 +40,20 @@ const createAddQuoteForm = (quote, category) => {
 
 const showRandomQuote = () => {
 	const randomQuote = quotes[Math.floor(Math.random() * quotes.length - 1)];
-
 	createAddQuoteForm(randomQuote.quote, randomQuote.category);
 };
+
+function importFromJsonFile(event) {
+	const fileReader = new FileReader();
+	fileReader.onload = function (event) {
+		const importedQuotes = JSON.parse(event.target.result);
+		quotes.push(...importedQuotes.quotes);
+		localStorage.setItem("quotes", JSON.stringify(quotes));
+		alert("Quotes imported successfully!");
+	};
+	fileReader.readAsText(event.target.files[0]);
+
+	console.log(quotes);
+}
 
 showQuote.addEventListener("click", showRandomQuote);
