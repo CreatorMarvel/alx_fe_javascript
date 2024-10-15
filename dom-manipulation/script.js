@@ -56,7 +56,7 @@ function importFromJsonFile(event) {
 	console.log(quotes);
 }
 
-function exportQuoteFun() {
+function exportToJsonFile() {
 	const obj = {
 		quote: newQuoteTextEl.value,
 		category: newQuoteCategoryEl.value,
@@ -75,6 +75,6 @@ function exportQuoteFun() {
 	document.body.appendChild(btn);
 }
 
-exportQuoteFun();
+exportToJsonFile();
 
 showQuote.addEventListener("click", showRandomQuote);
