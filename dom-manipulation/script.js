@@ -23,7 +23,7 @@ const addQuote = () => {
 	}
 };
 
-const createQuoteElement = (quote, category) => {
+const createAddQuoteForm = (quote, category) => {
 	const divEl = document.createElement("div");
 	const categoryEl = document.createElement("h2");
 	const textEl = document.createElement("p");
@@ -41,7 +41,7 @@ const createQuoteElement = (quote, category) => {
 const showRandomQuote = () => {
 	const randomQuote = quotes[Math.floor(Math.random() * quotes.length - 1)];
 
-	createQuoteElement(randomQuote.quote, randomQuote.category);
+	createAddQuoteForm(randomQuote.quote, randomQuote.category);
 };
 
 showQuote.addEventListener("click", showRandomQuote);
