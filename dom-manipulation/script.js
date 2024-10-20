@@ -48,7 +48,6 @@ const createAddQuoteForm = (qt, ctg) => {
 };
 
 const showRandomQuote = () => {
-	console.log(quotes);
 	const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 	createAddQuoteForm((qt = randomQuote.quote), (ctg = randomQuote.category));
 };
@@ -86,27 +85,29 @@ const exportToJsonFile = () => {
 
 const populateCategories = () => {
 	const categories = getQuotes();
-	const listOfCategories = [];
+	const allCtgs = [];
 
 	for (const ctg of categories) {
-		listOfCategories.push(ctg.category);
+		allCtgs.push(ctg.category);
 	}
 
-	for (const element of new Set(listOfCategories)) {
+	const populateCategories = Array.from(new Set(allCtgs));
+
+	populateCategories.map((element) => {
 		const selectDisplay = document.querySelector("#categoryFilter");
 		const option = document.createElement("option");
 		option.textContent = element;
 		option.setAttribute("value", element);
 		selectDisplay.appendChild(option);
-	}
+	});
 };
 
 const filterQuotes = (e) => {
-	const filterCategory = document.getElementById("categoryFilter").value;
+	const categoryFilter = document.getElementById("categoryFilter").value;
 	let allQuotes = getQuotes();
 
 	const filteredQuotes = allQuotes.filter(
-		(quote) => quote.category === filterCategory
+		(quote) => quote.category === categoryFilter
 	);
 	return getQuotes(filteredQuotes);
 };
