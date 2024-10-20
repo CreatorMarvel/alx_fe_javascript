@@ -3,15 +3,15 @@ const newQuoteCategoryEl = document.getElementById("newQuoteCategory");
 const quoteDisplay = document.getElementById("quoteDisplay");
 const showQuote = document.getElementById("newQuote");
 
-const getQuotes = (byFilter) => {
-	if (byFilter) {
-		console.log(byFilter);
-		return byFilter;
-	}
+const getQuotes = () => {
 	return JSON.parse(localStorage.getItem("quotes")) || [];
 };
 
-const quotes = getQuotes();
+const selectedCategory = (byFilter) => {
+	return byFilter;
+};
+
+const quotes = selectedCategory() ? selectedCategory() : getQuotes();
 
 const addQuote = () => {
 	const textValue = newQuoteTextEl.value.trim();
@@ -104,12 +104,11 @@ const populateCategories = () => {
 
 const filterQuotes = (e) => {
 	const categoryFilter = document.getElementById("categoryFilter").value;
-	let allQuotes = getQuotes();
 
-	const filteredQuotes = allQuotes.filter(
+	const filteredQuotes = quotes.filter(
 		(quote) => quote.category === categoryFilter
 	);
-	return getQuotes(filteredQuotes);
+	return selectedCategory(filteredQuotes);
 };
 
 populateCategories();
