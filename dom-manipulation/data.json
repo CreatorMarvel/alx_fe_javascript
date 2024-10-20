@@ -1,0 +1,29 @@
+{
+	"quotes": [
+		{
+			"quote": "Life is what happens when you're busy making other plans.",
+			"category": "Life",
+			"author": "John Lennon"
+		},
+		{
+			"quote": "The best way to predict the future is to create it.",
+			"category": "Motivation",
+			"author": "Peter Drucker"
+		},
+		{
+			"quote": "In the end, we will remember not the words of our enemies, but the silence of our friends.",
+			"category": "Friendship",
+			"author": "Martin Luther King Jr."
+		},
+		{
+			"quote": "The only limit to our realization of tomorrow will be our doubts of today.",
+			"category": "Motivation",
+			"author": "Franklin D. Roosevelt"
+		},
+		{
+			"quote": "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+			"category": "Identity",
+			"author": "Ralph Waldo Emerson"
+		}
+	]
+}

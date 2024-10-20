@@ -11,7 +11,32 @@ const selectedCategory = (byFilter) => {
 	return byFilter;
 };
 
-const quotes = selectedCategory() ? selectedCategory() : getQuotes();
+const fetchQuotesFromServer = async () => {
+	try {
+		const response = await fetch(
+			new Request("data.json", {
+				method: "GET",
+				cache: "no-store",
+				headers: {
+					"content-type": "application/json",
+				},
+			})
+		);
+
+		if (!response.ok) {
+			throw new Error("Invalid Request");
+		}
+
+		const data = await response.json();
+		return Array.from(data.quotes);
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+const quotes = selectedCategory()
+	? selectedCategory()
+	: fetchQuotesFromServer() || getQuotes() || [];
 
 const addQuote = () => {
 	const textValue = newQuoteTextEl.value.trim();
@@ -102,10 +127,10 @@ const populateCategories = () => {
 	});
 };
 
-const filterQuotes = (e) => {
+const filterQuotes = () => {
 	const categoryFilter = document.getElementById("categoryFilter").value;
 
-	const filteredQuotes = quotes.filter(
+	const filteredQuotes = getQuotes().filter(
 		(quote) => quote.category === categoryFilter
 	);
 	return selectedCategory(filteredQuotes);
