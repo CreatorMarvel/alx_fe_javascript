@@ -28,12 +28,21 @@ const fetchQuotesFromServer = async () => {
 		}
 
 		const data = await response.json();
-		console.log(data);
+		JSON.stringify(localStorage.setItem("data", data.quotes));
 		return Array.from(data.quotes);
 	} catch (error) {
 		console.error(error);
 	}
 };
+
+const syncQuotes = () => {
+	const localVersion = JSON.parse(localStorage.getItem("data"));
+	if (localVersion !== fetchQuotesFromServer()) {
+		JSON.stringify(localVersion.setItem("data", fetchQuotesFromServer()));
+	}
+};
+
+syncQuotes();
 
 const quotes = selectedCategory()
 	? selectedCategory()
