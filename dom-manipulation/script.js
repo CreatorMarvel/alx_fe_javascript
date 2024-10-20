@@ -65,7 +65,7 @@ function exportToJsonFile() {
 	const file = new File([blob], "quotes.json", { type: "application/json" });
 
 	const link = URL.createObjectURL(file);
-	const btn = document.createElement("a");
+	const btn = document.querySelector(".export-to-json");
 	btn.textContent = "Export Quotes";
 	btn.href = link;
 	btn.download = file.name;
