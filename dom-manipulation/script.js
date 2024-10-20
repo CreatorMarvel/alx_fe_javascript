@@ -9,7 +9,7 @@ const addQuote = () => {
 	const textValue = newQuoteTextEl.value.trim();
 	const categoryValue = newQuoteCategoryEl.value.trim();
 
-	if (newQuote && newQuoteCategoryEl) {
+	if (newQuoteCategoryEl) {
 		const newQuote = {
 			quote: textValue,
 			category: categoryValue,
@@ -61,10 +61,8 @@ function exportToJsonFile() {
 		quote: newQuoteTextEl.value,
 		category: newQuoteCategoryEl.value,
 	};
-
-	const file = new File([JSON.stringify(obj)], "quotes.json", {
-		type: "application/json",
-	});
+	const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
+	const file = new File([blob], "quotes.json", { type: "application/json" });
 
 	const link = URL.createObjectURL(file);
 	const btn = document.createElement("a");
