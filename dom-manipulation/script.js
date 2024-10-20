@@ -43,6 +43,7 @@ const syncQuotes = () => {
 	const localVersion = JSON.parse(localStorage.getItem("data"));
 	if (localVersion !== fetchQuotesFromServer()) {
 		JSON.stringify(localVersion.setItem("data", fetchQuotesFromServer()));
+		alert("Quotes synced with server!");
 	}
 };
 
