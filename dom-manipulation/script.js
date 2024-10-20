@@ -35,6 +35,10 @@ const fetchQuotesFromServer = async () => {
 	}
 };
 
+setInterval(() => {
+	fetchQuotesFromServer();
+}, 50000);
+
 const syncQuotes = () => {
 	const localVersion = JSON.parse(localStorage.getItem("data"));
 	if (localVersion !== fetchQuotesFromServer()) {
