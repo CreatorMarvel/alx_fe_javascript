@@ -15,10 +15,10 @@ const fetchQuotesFromServer = async () => {
 	try {
 		const response = await fetch(
 			new Request("https://jsonplaceholder.typicode.com/posts", {
-				method: "GET",
+				method: "POST",
 				cache: "no-store",
 				headers: {
-					"content-type": "application/json",
+					"Content-Type": "application/json",
 				},
 			})
 		);
