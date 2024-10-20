@@ -3,7 +3,15 @@ const newQuoteCategoryEl = document.getElementById("newQuoteCategory");
 const quoteDisplay = document.getElementById("quoteDisplay");
 const showQuote = document.getElementById("newQuote");
 
-const quotes = JSON.parse(localStorage.getItem("quotes")) || [];
+const getQuotes = (byFilter) => {
+	if (byFilter) {
+		console.log(byFilter);
+		return byFilter;
+	}
+	return JSON.parse(localStorage.getItem("quotes")) || [];
+};
+
+const quotes = getQuotes();
 
 const addQuote = () => {
 	const textValue = newQuoteTextEl.value.trim();
@@ -20,16 +28,17 @@ const addQuote = () => {
 
 		newQuoteTextEl.value = "";
 		newQuoteCategoryEl.value = "";
+		populateCategories();
 	}
 };
 
-const createAddQuoteForm = (quote, category) => {
+const createAddQuoteForm = (qt, ctg) => {
 	const divEl = document.createElement("div");
 	const categoryEl = document.createElement("h2");
 	const textEl = document.createElement("p");
 
-	categoryEl.textContent = category;
-	textEl.textContent = quote;
+	categoryEl.textContent = ctg;
+	textEl.textContent = qt;
 
 	divEl.appendChild(categoryEl);
 	divEl.appendChild(textEl);
@@ -39,24 +48,26 @@ const createAddQuoteForm = (quote, category) => {
 };
 
 const showRandomQuote = () => {
-	const randomQuote = quotes[Math.floor(Math.random() * quotes.length - 1)];
-	createAddQuoteForm(randomQuote.quote, randomQuote.category);
+	console.log(quotes);
+	const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+	createAddQuoteForm((qt = randomQuote.quote), (ctg = randomQuote.category));
 };
 
-function importFromJsonFile(event) {
+const importFromJsonFile = (event) => {
 	const fileReader = new FileReader();
 	fileReader.onload = function (event) {
 		const importedQuotes = JSON.parse(event.target.result);
 		quotes.push(...importedQuotes.quotes);
 		localStorage.setItem("quotes", JSON.stringify(quotes));
 		alert("Quotes imported successfully!");
+		populateCategories();
 	};
 	fileReader.readAsText(event.target.files[0]);
 
 	console.log(quotes);
-}
+};
 
-function exportToJsonFile() {
+const exportToJsonFile = () => {
 	const obj = {
 		quote: newQuoteTextEl.value,
 		category: newQuoteCategoryEl.value,
@@ -71,7 +82,36 @@ function exportToJsonFile() {
 	btn.download = file.name;
 
 	document.body.appendChild(btn);
-}
+};
+
+const populateCategories = () => {
+	const categories = getQuotes();
+	const listOfCategories = [];
+
+	for (const ctg of categories) {
+		listOfCategories.push(ctg.category);
+	}
+
+	for (const element of new Set(listOfCategories)) {
+		const selectDisplay = document.querySelector("#categoryFilter");
+		const option = document.createElement("option");
+		option.textContent = element;
+		option.setAttribute("value", element);
+		selectDisplay.appendChild(option);
+	}
+};
+
+const filterQuotes = (e) => {
+	const filterCategory = document.getElementById("categoryFilter").value;
+	let allQuotes = getQuotes();
+
+	const filteredQuotes = allQuotes.filter(
+		(quote) => quote.category === filterCategory
+	);
+	return getQuotes(filteredQuotes);
+};
+
+populateCategories();
 
 exportToJsonFile();
 
