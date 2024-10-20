@@ -14,7 +14,7 @@ const selectedCategory = (byFilter) => {
 const fetchQuotesFromServer = async () => {
 	try {
 		const response = await fetch(
-			new Request("data.json", {
+			new Request("https://jsonplaceholder.typicode.com/posts", {
 				method: "GET",
 				cache: "no-store",
 				headers: {
@@ -28,6 +28,7 @@ const fetchQuotesFromServer = async () => {
 		}
 
 		const data = await response.json();
+		console.log(data);
 		return Array.from(data.quotes);
 	} catch (error) {
 		console.error(error);
